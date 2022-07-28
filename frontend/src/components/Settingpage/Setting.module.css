@@ -1,0 +1,82 @@
+.container{
+    width: 60%;
+    margin: auto;
+    border: 2px solid black;
+    height: 500px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.innerdiv{
+    /* border: 1px solid red; */
+    width: 40%;
+}
+.container div{
+    margin-top: 20px;
+}
+.container h1{
+    font: 1em sans-serif;
+    font-size: large;
+    font-size: 25px;
+    margin-left: 20px;
+}
+.hr{
+    border-left: 1px solid gray;
+    height: 500px;
+    margin-right:25%;
+    margin-top: -2px;
+}
+.btn{
+    font-size: 25px;
+    margin-left: 10px;
+    border: none;
+    background: none;
+    /* border: 1px solid red; */
+    /* margin-top: 30px; */
+ 
+}
+.buttondiv{
+    /* border: 1px solid black; */
+    width: 60%;
+    height: fit-content;
+    text-align:left;
+    
+    margin-left: 10px;
+}
+.buttondiv:hover{
+    background: rgb(139, 139, 250);
+    width: 70%;
+    border-radius: 10px;
+    margin-left: 3px;
+    text-align: 5px;
+    
+}
+.select{
+    height: 40px;
+    margin-left: -40%;
+    margin-top: -20px;
+    font-size: 20px;
+
+}
+.select1{
+    height: 40px;
+    margin-left: -40%;
+    margin-top:15px;
+    font-size: 20px;
+
+}
+.select option{
+    font-size:20px;
+}
+.rightdiv{
+    margin-top: 30px;
+    /* border: 1px solid red; */
+}
+.videodiv{
+    border: 1px solid red;
+    width: 10%;
+    height: 30px;
+}
+.Switch{
+    margin-top: 30px;
+}
