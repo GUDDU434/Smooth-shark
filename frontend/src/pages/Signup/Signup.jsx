@@ -7,6 +7,8 @@ import axios from "axios";
 export default function Signup() {
   const [formData, setValue] = React.useState({});
   const [open, setOpen] = React.useState(false);
+  const [openErm, setopenErm] = React.useState(false);
+  const [message,setMessage] = React.useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,42 +25,42 @@ export default function Signup() {
       formData.email == null ||
       formData.mobile == null
     ) {
+      setopenErm(true);
+      setMessage("Data messing or password not mached")
       console.log("err password not mached");
     } else {
-      console.log("Go ahead");
-      setOpen(true);
-      //   axios
-      //     .post("http://localhost:8080/signup", formData)
-      //     .then(({ data }) => {
-      //         setOpen(true)
-      //         console.log(data)
-      //     })
-      //     .catch((err) => console.log(err));
+      // setOpen(true);
+      axios
+        .post("http://localhost:8080/user/signup", formData)
+        .then(({ data }) => {
+          if (data.status == "success") {
+            setOpen(true);
+            setMessage(data.message)
+            console.log(data);
+          } else {
+            setopenErm(true);
+            setMessage(data.message)
+            console.log(data.message);
+          }
+        })
+        .catch((err) =>{
+          setopenErm(true);
+            setMessage(err.response.data.message)
+            console.log(err)
+          });
     }
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   return (
+    <>
+      {openErm && <Alert severity="error">{message}</Alert>}
+      {open && <Alert severity="success">{message}</Alert>}
     <Box
       component="form"
-      sx={{margin:"2%",
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
+      sx={{ margin: "2%", "& .MuiTextField-root": { m: 1, width: "25ch" } }}
       noValidate
       autoComplete="off"
     >
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Signup Sucessfull
-        </Alert>
-      </Snackbar>
       {/* <form onSubmit={(e)=>handleSubmit(e)}> */}
       <div>
         <TextField
@@ -116,5 +118,6 @@ export default function Signup() {
       </Button>
       {/* </form> */}
     </Box>
+    </>
   );
 }
