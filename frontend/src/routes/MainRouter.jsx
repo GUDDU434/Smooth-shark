@@ -6,6 +6,7 @@ import { Login } from "../pages/Login";
 import { Message } from "../pages/Message/Message";
 import Signup from "../pages/Signup/Signup";
 import VideoCall from "./VideoCall";
+import Setting from "../components/Settingpage/Setting"
 
 export const MainRouter = () => {
   return (
@@ -17,6 +18,8 @@ export const MainRouter = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/message" element={<Message />}></Route>
         <Route path="/videocall" element={<VideoCall />}></Route>
+        {/* <Route path="/setting" element={<Setting />}></Route> */}
+
       </Routes>
     </>
   );
