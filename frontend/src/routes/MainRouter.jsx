@@ -5,6 +5,7 @@ import { Homepage } from "../pages/Homepage/Homepage";
 import { Login } from "../pages/Login";
 import { Message } from "../pages/Message/Message";
 import Signup from "../pages/Signup/Signup";
+import VideoCall from "./VideoCall";
 
 export const MainRouter = () => {
   return (
@@ -15,6 +16,7 @@ export const MainRouter = () => {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/message" element={<Message />}></Route>
+        <Route path="/videocall" element={<VideoCall />}></Route>
       </Routes>
     </>
   );

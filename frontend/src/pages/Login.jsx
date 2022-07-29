@@ -1,70 +1,78 @@
-import { Alert, Box, Button, Snackbar, TextField } from '@mui/material'
-import React from 'react'
+import { Alert, Box, Button, TextField } from "@mui/material";
+import axios from "axios";
+import React, { useContext } from "react";
+import { SocketContext } from "../contextApi/Context";
 
 export const Login = () => {
-    const [email,setemail] = React.useState("")
-    const [password,setpassword] = React.useState("")
-    const [open, setOpen] = React.useState(false)
+  const { user, setUser } = useContext(SocketContext);
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [openErr, setopenErr] = React.useState(false);
+  const [res, setres] = React.useState("");
 
-    const handleSubmit =()=>{
-        if(!email || !password){
-            console.log(false)
-        }else{
+  const handleSubmit = () => {
+    if (!email || !password) {
+      setOpen(false);
+      setopenErr(true);
+      setres("Email or password is missing");
+    } else {
+      axios
+        .post("http://localhost:8080/user/login", { email, password })
+        .then(({ data }) => {
+          setopenErr(false);
             setOpen(true);
-            console.log({email,password})
-        }
-       
+            setres(data.message);
+            setUser(data.response)
+            console.log(data);
+        })
+        .catch(({ response }) => {
+          setOpen(false);
+          setopenErr(true);
+          console.log(response.data.message);
+          setres(response.data.message);
+        });
     }
+  };
 
-    const handleClose = (event, reason) => {
-        if (reason === "clickaway") {
-          return;
-        }
-    
-        setOpen(false);
-      };
-    
   return (
-    <Box
-      component="form"
-      sx={{margin:"2%",
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Login Sucessfull
-        </Alert>
-      </Snackbar>
-    
-      <div>
-        <TextField
-          label="Email"
-          name="email"
-          type={"email"}
-          placeholder="Enter email id (guddu@gmail.com)"
-          variant="standard"
-          onChange={(e)=>setemail(e.target.value)}
-          value={email}
-        />
-      </div>
+    <>
+      {open && <Alert severity="success">{res}</Alert>}
+      {openErr && <Alert severity="error">{res}</Alert>}
 
-      <div>
-        <TextField
-          label="Create Password"
-          name="password"
-          placeholder="Enter the password"
-          variant="standard"
-          onChange={(e)=>setpassword(e.target.value)}
-          value={password}
-        />
-      </div>
-      <Button onClick={handleSubmit} variant="contained">
-        Login
-      </Button>
-      {/* </form> */}
-    </Box>
-  )
-}
+      <Box
+        component="form"
+        sx={{ margin: "2%", "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+        noValidate
+        autoComplete="off"
+      >
+        <div>
+          <TextField
+            label="Email"
+            name="email"
+            type={"email"}
+            placeholder="Enter email id (guddu@gmail.com)"
+            variant="standard"
+            onChange={(e) => setemail(e.target.value)}
+            value={email}
+          />
+        </div>
+
+        <div>
+          <TextField
+            label="Create Password"
+            name="password"
+            placeholder="Enter the password"
+            variant="standard"
+            onChange={(e) => setpassword(e.target.value)}
+            value={password}
+          />
+        </div>
+        <Button onClick={handleSubmit} variant="contained">
+          Login
+        </Button>
+        {/* </form> */}
+      </Box>
+    </>
+  );
+};
