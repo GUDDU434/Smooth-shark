@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Setting, { Settingpart, Settingthirdpart } from './components/Settingpage/Setting';
 import VideoPlayer from './pages/VideoPlayer';
 import Sidebar from './pages/Sidebar';
 import Notifications from './pages/Notifications';
@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
 
+
+
   return (
     <div className={classes.wrapper}>
      
@@ -42,6 +44,9 @@ const App = () => {
       <Sidebar>
         <Notifications />
       </Sidebar>
+      <Setting/>
+      <Settingpart/>
+      <Settingthirdpart/>
     </div>
   );
 };
