@@ -3,12 +3,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Alert, Button, Snackbar } from "@mui/material";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 export default function Signup() {
   const [formData, setValue] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [openErm, setopenErm] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,6 +40,9 @@ export default function Signup() {
             setopenErm(false);
             setOpen(true);
             setMessage(data.message);
+            setTimeout(() => {
+              navigate("/login")
+            }, 2000);
             console.log(data);
           } else {
             setOpen(false);

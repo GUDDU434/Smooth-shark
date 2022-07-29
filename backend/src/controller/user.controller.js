@@ -1,6 +1,11 @@
 const userModel = require("../model/User.schema");
-
-const signUpController = async ({ name, email, password, mobile }) => {
+const signUpController = async ({
+  name,
+  email,
+  password,
+  mobile,
+  avatarImage,
+}) => {
   if (!name || !email || !password || !mobile) {
     return { status: "error", message: "Insufficiant data", response: null };
   } else {
@@ -38,3 +43,13 @@ const loginController = async ({ email, password }) => {
 };
 
 module.exports = { signUpController, loginController };
+module.exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await userModel
+      .find({ _id: { $ne: req.params.id } })
+      .select(["email", "name", "avatarImage", "_id"]);
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+};
