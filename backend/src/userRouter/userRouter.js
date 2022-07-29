@@ -21,7 +21,7 @@ userRouter.post("/signup", async (req, res) => {
   if (status == "error") {
     return res.status(400).send({ message, status });
   } else {
-    const avatarImage = `https://api.multiavatar.com/vineeth${name}.svg`;
+    const avatarImage = `https://api.multiavatar.com/${name}.svg`;
 
     const userCreated = new userModel({
       name,

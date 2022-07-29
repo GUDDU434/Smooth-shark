@@ -79,7 +79,8 @@ export const Navbar = () => {
         )}
         {isLogIn && (
           <>
-            <p
+            <span
+            style={{ cursor: "pointer" }}
               onClick={()=>{
                 localStorage.clear();
                 navigate("/login");
@@ -87,7 +88,7 @@ export const Navbar = () => {
               }}
             >
               Logout
-            </p>
+            </span>
           </>
         )}
       </Box>
