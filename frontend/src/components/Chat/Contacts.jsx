@@ -25,7 +25,7 @@ export default function Contacts({ contacts, changeChat }) {
       {currentUserImage && currentUserImage && (
         <Container>
           <div className="brand">
-            <img src={Logo} alt="logo" />
+            {/* <img src={Logo} alt="logo" /> */}
             <h3>GROUP CHAT</h3>
           </div>
           <div className="contacts">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
@@ -7,20 +7,40 @@ import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/Chat/ChatContainer";
 import Contacts from "../components/Chat/Contacts";
 import Welcome from "../components/Chat/Welcome";
-
+import Loading from "../components/Loading";
+import { SocketContext } from "../contextApi/Context";
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
+ 
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect( () => {
-    async function check (){
-        if (!localStorage.getItem("currentUser")) {
-          navigate("/login");
-        } else {
-          setCurrentUser(await JSON.parse(localStorage.getItem("currentUser")));
-        }
+  const { setUser, setIsLogIn, isLoading, setIsLoading } =
+    useContext(SocketContext);
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      const data = JSON.parse(localStorage.getItem("currentUser"));
+      const obj = {
+        name: data.username,
+        email: data.email,
+        isAvatarImageSet: true,
+        avatarImage: data.avatarImage,
+        _id: data._id,
+        isLogIn: data.isLogin,
+      };
+      setIsLogIn(true)
+
+      setUser(obj)
+    }, 1000);
+    async function check() {
+      if (!localStorage.getItem("currentUser")) {
+        navigate("/login");
+      } else {
+        setCurrentUser(await JSON.parse(localStorage.getItem("currentUser")));
+      }
     }
     check();
   }, [navigate]);
@@ -32,33 +52,38 @@ export default function Chat() {
   }, [currentUser]);
 
   useEffect(() => {
-    async function check (){
-       if (currentUser) {
-         if (currentUser.isAvatarImageSet) {
-           const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-           setContacts(data.data);
-         } else {
-           navigate("/setAvatar");
-         }
-       }
+    async function check() {
+      if (currentUser) {
+        if (currentUser.isAvatarImageSet) {
+          const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+          setContacts(data.data);
+        } else {
+          navigate("/setAvatar");
+        }
+      }
     }
-    check()
+    check();
   }, [currentUser]);
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
   return (
     <>
-      <Container>
-        <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
-          {currentChat === undefined ? (
-            <Welcome />
-          ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
-          )}
-        </div>
-      </Container>
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <>
+          <Container>
+            <div className="container">
+              <Contacts contacts={contacts} changeChat={handleChatChange} />
+              {currentChat === undefined ? (
+                <Welcome />
+              ) : (
+                <ChatContainer currentChat={currentChat} socket={socket} />
+              )}
+            </div>
+          </Container>
+        </>
+      )}
     </>
   );
 }

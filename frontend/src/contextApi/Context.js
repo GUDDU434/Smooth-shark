@@ -20,6 +20,27 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
   const [isLogIn, setIsLogIn] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
+   useEffect(() => {
+     setIsLoading(true);
+     setTimeout(() => {
+       setIsLoading(false);
+       const data = JSON.parse(localStorage.getItem("currentUser"));
+       const obj = {
+         name: data.username,
+         email: data.email,
+         isAvatarImageSet: true,
+         avatarImage: data.avatarImage,
+         _id: data._id,
+         isLogIn: data.isLogin,
+       };
+       setIsLogIn(true);
+
+       setUser(obj);
+     }, 1000);
+     
+   }, []);
+
   useEffect(() => {
     if (isLogIn) {
        navigator.mediaDevices
@@ -112,6 +133,8 @@ const ContextProvider = ({ children }) => {
         setUser,
         isLogIn,
         setIsLogIn,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

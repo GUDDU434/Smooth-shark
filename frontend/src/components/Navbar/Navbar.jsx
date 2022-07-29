@@ -19,7 +19,7 @@ const style = {
 };
 
 export const Navbar = () => {
-    const {  isLogIn, setIsLogIn } = useContext(SocketContext);
+    const { isLogIn, setIsLogIn, user } = useContext(SocketContext);
   const [date, setDate] = useState("");
 
   const [open, setOpen] = React.useState(false);
@@ -47,9 +47,13 @@ export const Navbar = () => {
           <img
             src={Logo}
             alt="logo"
-            style={{ width: "130px", height: "90px" }}
+            style={{ width: "130px", height: "90px", position: "relative" }}
           />
-          {/* <h1>Meet Room</h1> */}
+          {isLogIn && (
+            <h3 style={{ margin: "auto", position: "relative" }}>
+              {user.name}
+            </h3>
+          )}
         </div>
       </Box>
       <Box
@@ -92,11 +96,11 @@ export const Navbar = () => {
         {isLogIn && (
           <>
             <span
-            style={{ cursor: "pointer" }}
-              onClick={()=>{
+              style={{ cursor: "pointer" }}
+              onClick={() => {
                 localStorage.clear();
                 navigate("/login");
-                setIsLogIn(false)
+                setIsLogIn(false);
               }}
             >
               Logout
@@ -117,7 +121,7 @@ export const Navbar = () => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography> */}
-          <Setting/>
+          <Setting />
         </Box>
       </Modal>
     </Box>
