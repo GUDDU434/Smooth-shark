@@ -9,6 +9,7 @@ import Signup from "../pages/Signup/Signup";
 import VideoCall from "./VideoCall";
 import Setting from "../components/Settingpage/Setting"
 import Chat from "../pages/Chat"
+import InvalidPage from "../components/InvalidPage";
 export const MainRouter = () => {
   return (
     <>
@@ -20,7 +21,8 @@ export const MainRouter = () => {
         <Route path="/message" element={<Chat />}></Route>
         <Route path="/videocall" element={<VideoCall />}></Route>
         {/* <Route path="/setting" element={<Setting />}></Route> */}
-        {/* <Route path="/chat" element={<Chat/>}></Route> */}
+        <Route path="/:name" element={<InvalidPage />}></Route>
+        <Route path="/:name/:id" element={<InvalidPage />}></Route>
       </Routes>
     </>
   );
