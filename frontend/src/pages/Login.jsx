@@ -42,7 +42,7 @@ export const Login = () => {
 
       <Box
         component="form"
-        sx={{ margin: "2%", "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+        sx={{ margin: "2%", "& .MuiTextField-root": { m: 1, width: "40ch" } }}
         noValidate
         autoComplete="off"
       >
