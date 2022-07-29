@@ -1,16 +1,50 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CreateRoom from "./pages/CreateRoom"
-import Room from "./pages/Room";
-function App() {
+import { Typography, AppBar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import VideoPlayer from './pages/VideoPlayer';
+import Sidebar from './pages/Sidebar';
+import Notifications from './pages/Notifications';
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    borderRadius: 15,
+    margin: '30px 100px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '600px',
+    border: '2px solid black',
+
+    [theme.breakpoints.down('xs')]: {
+      width: '90%',
+    },
+  },
+  image: {
+    marginLeft: '15px',
+  },
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+  },
+}));
+
+const App = () => {
+  const classes = useStyles();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<CreateRoom/>} />
-        <Route path="/room/:roomID" element={<Room/>} />
-      </Routes>
-    </BrowserRouter>
+    <div className={classes.wrapper}>
+     
+      <VideoPlayer />
+      <Sidebar>
+        <Notifications />
+      </Sidebar>
+    </div>
   );
-}
+};
 
 export default App;
+
