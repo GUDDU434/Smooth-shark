@@ -21,10 +21,20 @@ export const Login = () => {
         .post("http://localhost:8080/user/login", { email, password })
         .then(({ data }) => {
           setopenErr(false);
-            setOpen(true);
-            setres(data.message);
-            setUser(data.response)
-            console.log(data);
+          setOpen(true);
+          setres(data.message);
+          setUser(data.response);
+          const allData = {
+            avatarImage: data.response.avatarImage,
+            email: data.response.email,
+            isAvatarImageSet: true,
+            username: data.response.name,
+            _id: data.response._id,
+          };
+            localStorage.setItem(
+             "currentUser",
+              JSON.stringify(allData),
+            );
         })
         .catch(({ response }) => {
           setOpen(false);
