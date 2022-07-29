@@ -5,12 +5,12 @@ const signUpController = async ({ name, email, password, mobile }) => {
     return { status: "error", message: "Insufficiant data", response: null };
   } else {
     const loginUser = await userModel.findOne({ email, password });
-    if(loginUser){
+    if (loginUser) {
       return {
-        status:"error",
-        message:"User already exist",
-        response:null
-      }
+        status: "error",
+        message: "User already exist",
+        response: null,
+      };
     }
     return { status: "success", message: "sucessfully created" };
   }
@@ -24,15 +24,15 @@ const loginController = async ({ email, password }) => {
     if (loginUser) {
       return {
         status: "Sucess",
-        message: "Login successdul",
+        message: "Login successful",
         response: loginUser,
       };
-    }else{
+    } else {
       return {
-        status:"error",
-        message:"invalid email id or password",
-        response:null
-      }
+        status: "error",
+        message: "invalid email id or password",
+        response: null,
+      };
     }
   }
 };

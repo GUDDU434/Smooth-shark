@@ -1,10 +1,11 @@
 import { Box, Button, TextField } from "@mui/material";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
-import React from "react";
-import { useEffect } from "react";
+import React,{ useEffect,useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 export const Homepage = () => {
+  const [ url, setUrl] = useState("")
+  const navigate = useNavigate()
   useEffect(() => {
     document.title = "Web meeting application";
   }, []);
@@ -36,7 +37,7 @@ export const Homepage = () => {
             justifyContent: "space-evenly",
           }}
         >
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" onClick={()=>navigate("/videocall")}>
             <VideoCallIcon /> New meeting
           </Button>
 
@@ -44,6 +45,7 @@ export const Homepage = () => {
             id="outlined-basic"
             label="Enter the URL"
             variant="outlined"
+            onChange={(e)=>setUrl(e.target.value)}
           />
           <Button>Join</Button>
         </Box>

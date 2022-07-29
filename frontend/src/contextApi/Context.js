@@ -16,6 +16,7 @@ const ContextProvider = ({ children }) => {
   const [me, setMe] = useState("");
   const [Audio,setAudio] = useState(true)
   const [Video,setVideo] = useState(true)
+  const [user,setUser] = useState({})
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
@@ -105,7 +106,9 @@ const ContextProvider = ({ children }) => {
         setAudio,
         setVideo,
         Audio,
-        Video
+        Video,
+        user,
+        setUser
       }}
     >
       {children}
