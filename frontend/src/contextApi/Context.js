@@ -4,7 +4,6 @@ import Peer from "simple-peer";
 
 const SocketContext = createContext();
 
-
 const socket = io("http://localhost:8080");
 
 const ContextProvider = ({ children }) => {
@@ -14,27 +13,29 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [call, setCall] = useState({});
   const [me, setMe] = useState("");
-  const [Audio,setAudio] = useState(true)
-  const [Video,setVideo] = useState(true)
-  const [user,setUser] = useState({})
+  const [Audio, setAudio] = useState(true);
+  const [Video, setVideo] = useState(true);
+  const [user, setUser] = useState({});
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
+  const [isLogIn, setIsLogIn] = useState(false);
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: Video, audio: Audio })
-      .then((currentStream) => {
-        setStream(currentStream);
+    if (isLogIn) {
+       navigator.mediaDevices
+         .getUserMedia({ video: Video, audio: Audio })
+         .then((currentStream) => {
+           setStream(currentStream);
 
-        myVideo.current.srcObject = currentStream;
-      });
+           myVideo.current.srcObject = currentStream;
+         });
 
-    socket.on("me", (id) => setMe(id));
+       socket.on("me", (id) => setMe(id));
 
-    socket.on("callUser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
-    });
+       socket.on("callUser", ({ from, name: callerName, signal }) => {
+         setCall({ isReceivingCall: true, from, name: callerName, signal });
+       });
+    }
   }, []);
 
   const answerCall = () => {
@@ -108,7 +109,9 @@ const ContextProvider = ({ children }) => {
         Audio,
         Video,
         user,
-        setUser
+        setUser,
+        isLogIn,
+        setIsLogIn,
       }}
     >
       {children}
