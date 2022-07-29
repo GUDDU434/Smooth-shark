@@ -1,5 +1,5 @@
 .container{
-    width: 60%;
+    width: 900px;
     margin: auto;
     border: 2px solid black;
     height: 500px;
@@ -72,11 +72,11 @@
     margin-top: 30px;
     /* border: 1px solid red; */
 }
-.videodiv{
+/* .videodiv{
     border: 1px solid red;
-    width: 10%;
+    width: 60%;
     height: 30px;
-}
+} */
 .Switch{
     margin-top: 30px;
 }
