@@ -1,10 +1,15 @@
-import React from 'react';
+import "./App.css";
+import { MainRouter } from "./routes/MainRouter";
 import VideoCall from './routes/VideoCall';
-const App = () => {
- return (
-  <VideoCall/>
- )
-};
+
+function App() {
+  return (
+    <div className="App">
+      <MainRouter/>
+      <VideoCall/>
+    </div>
+  );
+}
 
 export default App;
 
