@@ -20,7 +20,7 @@ export const Login = () => {
       setres("Email or password is missing");
     } else {
       axios
-        .post("http://localhost:8080/user/login", { email, password })
+        .post("https://chattingapp434.herokuapp.com/user/login", { email, password })
         .then(({ data }) => {
           setopenErr(false);
           setOpen(true);

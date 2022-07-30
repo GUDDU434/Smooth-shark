@@ -34,7 +34,7 @@ export default function Signup() {
     } else {
       // setOpen(true);
       axios
-        .post("http://localhost:8080/user/signup", formData)
+        .post("https://chattingapp434.herokuapp.com/user/signup", formData)
         .then(({ data }) => {
           if (data.status == "success") {
             setopenErm(false);

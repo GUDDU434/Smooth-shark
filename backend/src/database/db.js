@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+require('dotenv').config()
 
 const connection = mongoose.connect(
-  "mongodb+srv://sugarcosmetics:masaiuint5@cluster0.nfskqzh.mongodb.net/smoothShark?retryWrites=true&w=majority",
+  process.env.URL
 );
 
 module.exports = connection;
