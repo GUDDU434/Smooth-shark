@@ -13,7 +13,7 @@ import InvalidPage from "../components/InvalidPage";
 export const MainRouter = () => {
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
