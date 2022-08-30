@@ -7,6 +7,12 @@ function Setting() {
   const handleclick = () => {
     console.log("hello");
   };
+  const handleclick1 = () => {
+    console.log("hello");
+  };
+  const handleclick2 = () => {
+    console.log("hello");
+  };
   return (
     <div className={styled.container}>
       <div className={styled.innerdiv}>
@@ -27,7 +33,7 @@ function Setting() {
             class="fa-solid fa-video"
             aria-hidden="true"
           ></i>
-          <button className={styled.btn} onClick={handleclick}>
+          <button className={styled.btn} onClick={handleclick1}>
             Video
           </button>
         </div>
@@ -37,7 +43,7 @@ function Setting() {
             class="fa-solid fa-gear"
             aria-hidden="true"
           ></i>
-          <button className={styled.btn} onClick={handleclick}>
+          <button className={styled.btn} onClick={handleclick2}>
             General
           </button>
         </div>
